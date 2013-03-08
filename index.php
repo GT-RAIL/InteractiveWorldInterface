@@ -16,25 +16,25 @@
  * @param robot_environment $re The associated robot_environment object for this interface
  */
 function generate($re) {
-	// check if we have all the widget information we have
-	if(count($re->get_widgets_by_name('MJPEG Stream')) < 2) {
-		create_error_page('Not enough MJPEG streams.', $re->get_user_account());
-	} else if(!$teleop = $re->get_widgets_by_name('Keyboard Teleop')) {
-		create_error_page('No Keyboard Teloperation settings found.', $re->get_user_account());
-	} else if(!$re->authorized()) {
-		create_error_page('Invalid experiment for the current user.', $re->get_user_account());
-	} else { // here we can spit out the HTML for our interface?>
+  // check if we have all the widget information we have
+  if(count($re->get_widgets_by_name('MJPEG Stream')) < 2) {
+    create_error_page('Not enough MJPEG streams.', $re->get_user_account());
+  } else if(!$teleop = $re->get_widgets_by_name('Keyboard Teleop')) {
+    create_error_page('No Keyboard Teloperation settings found.', $re->get_user_account());
+  } else if(!$re->authorized()) {
+    create_error_page('Invalid experiment for the current user.', $re->get_user_account());
+  } else { // here we can spit out the HTML for our interface?>
 <!DOCTYPE html>
 <html>
 <head>
-	<?php $re->create_head() // grab the header information ?>
+  <?php $re->create_head() // grab the header information ?>
 <script type="text/javascript"
   src="https://raw.github.com/RobotWebTools/pr2runstopjs/groovy-devel/pr2runstop.js"></script>
 <script type="text/javascript"
   src="https://raw.github.com/RobotWebTools/rosbagjs/groovy-devel/topiclogger.js"></script>
 <title>Basic Teleop Interface</title>
 
-	<?php $re->make_ros() // connect to ROS ?>
+  <?php $re->make_ros() // connect to ROS ?>
 
 <script type="text/javascript">
   ros.on('error', function() {
@@ -107,7 +107,7 @@ function generate($re) {
   </section>
 </body>
 </html>
-          <?php
-	}
+    <?php
+  }
 }
 ?>
