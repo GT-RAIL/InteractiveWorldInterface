@@ -92,10 +92,15 @@ function generate($re) {
           </div>
         </td>
         <td><h2>PR2 Remote Demonstrations</h2></td>
-        <td><img src="../img/logo.png"></td>
+        <td align="right"><img src="../img/logo.png"></td>
       </tr>
       <tr>
         <td colspan="2"><div id="scene"></div></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div class="line"></div>
+        </td>
       </tr>
       <tr>
         <td colspan="3">
