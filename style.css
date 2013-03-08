@@ -1,20 +1,26 @@
 /**
- * The custom style sheet for the basic interface.
+ * The custom style sheet for the PR2 remote demonstrations interface.
  *
  *  Author: Russell Toris
- * Version: December 13, 2012
+ * Version: March 8, 2013
  */
 
 body {
-  background: #efefef; 
+  background: #404245; 
+}
+
+footer td, footer a {
+	color: #101010 !important;
 }
 
 #interface {
-  background: #404245;
+  background: #C3C3C4;
   box-shadow: 5px 5px 5px #888;
-  width: 1280px;
+  width: 1600px;
+  height: 950px;
   position: relative;
   margin-left: auto;
   margin-right: auto;
   border-radius: 0 0 5px 5px;
+  padding: 5px;
 }
