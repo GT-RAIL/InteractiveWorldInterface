@@ -30,9 +30,7 @@ function generate($re) {
   <?php $re->create_head() // grab the header information ?>
 <script type="text/javascript"
   src="https://raw.github.com/RobotWebTools/pr2runstopjs/groovy-devel/pr2runstop.js"></script>
-<script type="text/javascript"
-  src="https://raw.github.com/RobotWebTools/rosbagjs/groovy-devel/topiclogger.js"></script>
-<title>Basic Teleop Interface</title>
+<title><?php echo $title = 'Bosch PR2 Remote Demonstration'?></title>
 
   <?php $re->make_ros() // connect to ROS ?>
 
@@ -91,7 +89,9 @@ function generate($re) {
           <?php echo create_multi_mjpeg_canvas_by_envid($re->get_envid(), 400, 300, 1)?>
           </div>
         </td>
-        <td><h2>PR2 Remote Demonstrations</h2></td>
+        <td><h2>
+        <?php echo $title?>
+          </h2></td>
         <td align="right"><img src="../img/logo.png"></td>
       </tr>
       <tr>
@@ -112,7 +112,7 @@ function generate($re) {
   </section>
 </body>
 </html>
-    <?php
+<?php
   }
 }
 ?>
