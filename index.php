@@ -6,7 +6,7 @@
  * @author     Russell Toris <rctoris@wpi.edu>
  * @copyright  2013 Robert Bosch LLC
  * @license    BSD -- see LICENSE file
- * @version    March, 8 2013
+ * @version    March, 11 2013
  * @package    api.robot_environments.interfaces.bosch_pr2_remote_demonstration_interface
  * @link       http://ros.org/wiki/bosch_pr2_remote_demonstration_interface
  */
@@ -21,6 +21,8 @@ function generate($re) {
     create_error_page('Not enough MJPEG streams.', $re->get_user_account());
   } else if(!$teleop = $re->get_widgets_by_name('Keyboard Teleop')) {
     create_error_page('No Keyboard Teloperation settings found.', $re->get_user_account());
+  } else if(!$im = $re->get_widgets_by_name('Interactive Markers')) {
+    create_error_page('No Interactive Markers settings found.', $re->get_user_account());
   } else if(!$re->authorized()) {
     create_error_page('Invalid experiment for the current user.', $re->get_user_account());
   } else { // here we can spit out the HTML for our interface?>
@@ -29,7 +31,7 @@ function generate($re) {
 <head>
   <?php $re->create_head() // grab the header information ?>
 <script type="text/javascript"
-  src="https://raw.github.com/RobotWebTools/pr2runstopjs/groovy-devel/pr2runstop.js"></script>
+	src="https://raw.github.com/RobotWebTools/pr2runstopjs/groovy-devel/pr2runstop.js"></script>
 <title><?php echo $title = 'Bosch PR2 Remote Demonstration'?></title>
 
   <?php $re->make_ros() // connect to ROS ?>
@@ -70,46 +72,60 @@ function generate($re) {
     $('body').bind('DOMSubtreeModified', function() {
       $('button').button();
     });
+
+    <?php echo add_interactive_markers_to_global_scene($im[0])?>
   }
 </script>
 </head>
 <body onload="start()">
-  <section id="interface">
-    <table>
-      <tr>
-        <td rowspan="2">
-          <div id="run-stop"></div>
-          <div id="speed-container">
-          <?php echo create_keyboard_teleop_with_slider($teleop[0])?>
-          </div>
-          <div id="video1">
-          <?php echo create_multi_mjpeg_canvas_by_envid($re->get_envid(), 400, 300, 0)?>
-          </div>
-          <div id="video2">
-          <?php echo create_multi_mjpeg_canvas_by_envid($re->get_envid(), 400, 300, 1)?>
-          </div>
-        </td>
-        <td><h2>
-        <?php echo $title?>
-          </h2></td>
-        <td align="right"><img src="../img/logo.png"></td>
-      </tr>
-      <tr>
-        <td colspan="2"><div id="scene"></div></td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <div class="line"></div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <div id="logger"></div>
-        </td>
-      </tr>
-    </table>
-    <?php create_footer()?>
-  </section>
+	<section id="interface">
+		<table>
+			<tr>
+				<td rowspan="2">
+					<div id="run-stop"></div>
+					<div id="speed-container">
+					<?php echo create_keyboard_teleop_with_slider($teleop[0])?>
+					</div>
+					<div id="video1">
+					<?php echo create_multi_mjpeg_canvas_by_envid($re->get_envid(), 400, 300, 0)?>
+					</div>
+					<div id="video2">
+					<?php echo create_multi_mjpeg_canvas_by_envid($re->get_envid(), 400, 300, 1)?>
+					</div>
+				</td>
+				<td><h2>
+				<?php echo $title?>
+					</h2></td>
+				<td align="right"><img src="../img/logo.png"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><div id="scene"></div></td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<div class="line"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="logger"></div>
+				</td>
+				<td><button>Button 1</button>
+					<button>Button 2</button>
+					<button>Button 3</button>
+					<button>Button 4</button> <br />
+					<button>Button 5</button>
+					<button>Button 6</button>
+					<button>Button 7</button>
+					<button>Button 8</button> <br />
+					<button>Button 9</button>
+					<button>Button 10</button>
+					<button>Button 11</button>
+					<button>Button 12</button></td>
+			</tr>
+		</table>
+		<?php create_footer()?>
+	</section>
 </body>
 </html>
 <?php
