@@ -1,8 +1,8 @@
-rms [![Build Status](https://api.travis-ci.org/WPI-RAIL/rms.png)](https://travis-ci.org/WPI-RAIL/rms)
-===
+RMSClickableWorld [![Build Status](https://api.travis-ci.org/rctoris/RMSClickableWorld)](https://travis-ci.org/rctoris/RMSClickableWorld)
+=================
 
 #### An Online Interface for the Clickable World
-For full documentation, see [the ROS wiki](http://ros.org/wiki/RMSClickableWorld) or check out some [tutorials](http://www.ros.org/wiki/rms/#Tutorials).
+For full documentation, see [the ROS wiki](http://ros.org/wiki/RMSClickableWorld).
 
 This project is released as part of the [Robot Web Tools](http://robotwebtools.org/) effort.
 
