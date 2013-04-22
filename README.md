@@ -1,4 +1,4 @@
-RMSClickableWorld [![Build Status](https://api.travis-ci.org/rctoris/RMSClickableWorld)](https://travis-ci.org/rctoris/RMSClickableWorld)
+RMSClickableWorld [![Build Status](https://api.travis-ci.org/rctoris/RMSClickableWorld.png)](https://travis-ci.org/rctoris/RMSClickableWorld)
 =================
 
 #### An Online Interface for the Clickable World
