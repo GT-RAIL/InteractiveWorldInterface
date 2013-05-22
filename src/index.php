@@ -1,25 +1,23 @@
 <?php
 /**
- * An interface for the clickable world for use within RMS.
+ * An interface for the interactive world for use within RMS.
  *
  * @author     Russell Toris <rctoris@wpi.edu>
- * @copyright  2013 Robert Bosch LLC, Willow Garage Inc.
+ * @copyright  2013 Worcester Polytechnic Institute
  * @license    BSD -- see LICENSE file
- * @version    April, 22 2013
- * @package    api.robot_environments.interfaces.RMSClickableWorld
- * @link       http://ros.org/wiki/RMSClickableWorld
+ * @version    May, 22 2013
+ * @link       http://ros.org/wiki/rms_clickable_world
  */
 
 /**
  * A static class to contain the interface generate function.
  *
  * @author     Russell Toris <rctoris@wpi.edu>
- * @copyright  2013 Robert Bosch LLC, Willow Garage Inc.
+ * @copyright  2013 Worcester Polytechnic Institute
  * @license    BSD -- see LICENSE file
- * @version    April, 22 2013
- * @package    api.robot_environments.interfaces.simple_nav2d
+ * @version    May, 22 2013
  */
-class RMSClickableWorld
+class rms_interactive_world
 {
     /**
      * Generate the HTML for the interface. All HTML is echoed.
