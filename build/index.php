@@ -17,7 +17,7 @@
  * @license    BSD -- see LICENSE file
  * @version    May, 22 2013
  */
-class rms_clickable_world
+class rms_interactive_world
 {
     /**
      * Generate the HTML for the interface. All HTML is echoed.

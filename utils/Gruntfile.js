@@ -12,23 +12,6 @@ module.exports = function(grunt) {
         '../src/**/*.js'
       ]
     },
-    karma: {
-      build: {
-        configFile: '../test/karma.conf.js',
-        singleRun: true,
-        browsers: ['PhantomJS']
-      }
-    },
-    uglify: {
-      options: {
-        report: 'min'
-      },
-      build: {
-        files: {
-          '../build/js/interface.js': ['../build/js/js/interface.js']
-        }
-      }
-    },
     csslint: {
       build: {
         options: {
@@ -49,7 +32,7 @@ module.exports = function(grunt) {
           '../build/style.css': ['../build/style.css']
         }
       }
-    }
+    },
     clean: {
       options: {
         force: true
@@ -77,7 +60,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-karma');
 
-  grunt.registerTask('build', ['jshint', 'uglify', 'csslint', 'cssmin']);
+  grunt.registerTask('build', ['jshint', 'csslint', 'cssmin']);
   grunt.registerTask('doc', ['clean', 'jsdoc']);
 };
 
