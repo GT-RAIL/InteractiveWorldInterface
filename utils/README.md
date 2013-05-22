@@ -1,5 +1,5 @@
-RMSClickableWorld Build Setup
-=============================
+rms_interactive_world Build Setup
+=================================
 
 [Phing](http://www.phing.info/) is used for building, minimizing, documenting, linting, and testing of PHP files.
 
@@ -22,7 +22,7 @@ RMSClickableWorld Build Setup
    * `sudo npm install -g grunt-cli karma`
    * `sudo rm -rf ~/.npm ~/tmp`
  4. Install the Grunt tasks specific to this project
-   * `cd /path/to/ros3djs/utils/`
+   * `cd /path/to/rms_interactive_world/utils/`
    * `npm install .`
  5. (Optional) To generate the documentation, you'll need to setup Java and phpDocumentor 2. Documentation generation is not required for patches.
    * `echo "export JAVA_HOME=/usr/lib/jvm/default-java/jre" >> ~/.bashrc`
@@ -39,7 +39,6 @@ To run the build tasks:
  1. `cd /path/to/RMSClickableWorld/utils/`
  2. `phing`
 
-`phing build` will minimize the JavaScript files under `src` and place the new built project into `build`. It will also run the linter. This is what [Travis CI](https://travis-ci.org/rctoris/RMSClickableWorld) runs when a Pull Request is submitted.
+`phing build` will minimize the JavaScript files under `src` and place the new built project into `build`. It will also run the linter. This is what [Travis CI](https://travis-ci.org/SharedAutonomyToolkit/rms_interactive_world) runs when a Pull Request is submitted.
 
 `phing doc` will document all PHP and JavaScript files and place them in the `doc` folder.
-
