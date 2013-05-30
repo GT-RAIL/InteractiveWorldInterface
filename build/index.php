@@ -6,7 +6,7 @@
  * @copyright  2013 Worcester Polytechnic Institute
  * @license    BSD -- see LICENSE file
  * @version    May, 22 2013
- * @link       http://ros.org/wiki/rms_clickable_world
+ * @link       http://ros.org/wiki/rms_interactive_world
  */
 
 /**
@@ -258,7 +258,6 @@ class rms_interactive_world
         }
       });
       goal.on('result', function(result) {
-        console.log(result);
         var goal2 = new ROSLIB.Goal({
           actionClient : recognize,
           goalMessage : {
@@ -266,16 +265,14 @@ class rms_interactive_world
             interactive : false
           }
         });
-        goal2.on('result', function(result) {
-          console.log(result);
-        });
+        goal2.on('result', function(result) {});
         goal2.send();
       });
       goal.send();
     });
     var change = new ROSLIB.Service({
       ros : ros,
-      name : '/clickable_world_server/change_mode',
+      name : '/interactive_world_server/change_mode',
       serviceType : 'std_srvs/Empty'
     });
     var changeButton = $('#change');
@@ -287,7 +284,7 @@ class rms_interactive_world
 
     var save = new ROSLIB.Service({
       ros : ros,
-      name : '/clickable_world_server/save',
+      name : '/interactive_world_server/save',
       serviceType : 'std_srvs/Empty'
     });
 	var saveButton = $('#save');
@@ -297,7 +294,7 @@ class rms_interactive_world
 	saveButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
 	var templateCount = new ROSLIB.Topic({
 	  ros : ros,
-	  name : '/clickable_world_server/template_count',
+	  name : '/interactive_world_server/template_count',
 	  messageType : 'std_msgs/Int32'
 	});
 	templateCount.subscribe(function(count) {
@@ -316,7 +313,7 @@ class rms_interactive_world
 	});
 	var load = new ROSLIB.Topic({
       ros : ros,
-      name : '/clickable_world_server/load',
+      name : '/interactive_world_server/load',
       messageType : 'std_msgs/Int32'
     });
 	var loadButton = $('#load');
@@ -366,7 +363,7 @@ class rms_interactive_world
         <td><h2>
             <?php echo $title?>
           </h2></td>
-        <td align="right"><img src="../img/logo.png"></td>
+        <td align="right">></td>
       </tr>
       <tr>
         <td colspan="2"><div id="scene" class="scene"></div></td>
