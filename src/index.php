@@ -6,7 +6,7 @@
  * @copyright  2013 Worcester Polytechnic Institute
  * @license    BSD -- see LICENSE file
  * @version    May, 22 2013
- * @link       http://ros.org/wiki/rms_clickable_world
+ * @link       http://ros.org/wiki/rms_interactive_world
  */
 
 /**
@@ -26,7 +26,7 @@ class rms_interactive_world
      */
     function generate($re)
     {
-     // check if we have enough valid widgets
+        // check if we have enough valid widgets
         if (!$streams = $re->get_widgets_by_name('MJPEG Stream')) {
             robot_environments::create_error_page(
                 'No MJPEG streams found.',
@@ -61,14 +61,14 @@ class rms_interactive_world
                 $labels .= "'".$s['label']."', ";
             }
             $topics = substr($topics, 0, strlen($topics) - 2).']';
-            $labels = substr($labels, 0, strlen($topics) - 2).']'; 
-            
+            $labels = substr($labels, 0, strlen($topics) - 2).']';
+
             // we will also need the map
             $widget = widgets::get_widget_by_table('maps');
             $map = widgets::get_widget_instance_by_widgetid_and_id(
                 $widget['widgetid'], $nav[0]['mapid']
             );
-            
+
             $collada = 'ColladaAnimationCompress/0.0.1/ColladaLoader2.min.js'?>
 <!DOCTYPE html>
 <html>
@@ -76,23 +76,23 @@ class rms_interactive_world
 <?php $re->create_head() // grab the header information ?>
 <title><?php echo $title = 'Interactive World' ?></title>
 <script type="text/javascript"
-    src="http://cdn.robotwebtools.org/threejs/r56/three.min.js">
+  src="http://cdn.robotwebtools.org/threejs/r56/three.min.js">
 </script>
 <script type="text/javascript"
-    src="http://cdn.robotwebtools.org/EventEmitter2/0.4.11/eventemitter2.js">
+  src="http://cdn.robotwebtools.org/EventEmitter2/0.4.11/eventemitter2.js">
 </script>
 <script type="text/javascript"
-    src="http://cdn.robotwebtools.org/<?php echo $collada?>">
+  src="http://cdn.robotwebtools.org/<?php echo $collada?>">
 </script>
 <script type="text/javascript"
-    src="http://cdn.robotwebtools.org/roslibjs/r5/roslib.min.js"></script>
+  src="http://cdn.robotwebtools.org/roslibjs/r5/roslib.min.js"></script>
 <script type="text/javascript"
-    src="http://cdn.robotwebtools.org/mjpegcanvasjs/r1/mjpegcanvas.min.js">
+  src="http://cdn.robotwebtools.org/mjpegcanvasjs/r1/mjpegcanvas.min.js">
 </script>
 <script type="text/javascript"
   src="http://cdn.robotwebtools.org/keyboardteleopjs/r1/keyboardteleop.min.js">
 </script>
-  <script type="text/javascript"
+<script type="text/javascript"
   src="http://cdn.robotwebtools.org/ros3djs/r4/ros3d.min.js">
 </script>
 
@@ -105,6 +105,26 @@ class rms_interactive_world
   ros.on('error', function() {
     alert('Lost communication with ROS.');
   });
+
+  var editMode = false;
+  var templates = 0;
+
+  /**
+   * Change the mode of the interface.
+   */
+  function changeMode() {
+	var saveButton = $('#save');
+	var loadButton = $('#load');
+	  
+    if(!editMode) {
+       saveButton.removeAttr('disabled').removeClass('ui-state-disabled');
+       loadButton.removeAttr('disabled').removeClass('ui-state-disabled');
+    } else {
+       saveButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
+       loadButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
+    }
+    editMode = !editMode;
+  }
 
   /**
    * Load everything on start.
@@ -222,7 +242,7 @@ class rms_interactive_world
       viewer.cameraControls.center.z = tf.translation.z;
     });
 
-    // create the recognize button
+    // create the buttons
     var recognize = new ROSLIB.ActionClient({
       ros : ros,
       serverName : '/object_detection_user_command',
@@ -238,7 +258,6 @@ class rms_interactive_world
         }
       });
       goal.on('result', function(result) {
-        console.log(result);
         var goal2 = new ROSLIB.Goal({
           actionClient : recognize,
           goalMessage : {
@@ -246,13 +265,75 @@ class rms_interactive_world
             interactive : false
           }
         });
-        goal2.on('result', function(result) {
-          console.log(result);
-        });
+        goal2.on('result', function(result) {});
         goal2.send();
       });
       goal.send();
     });
+    var change = new ROSLIB.Service({
+      ros : ros,
+      name : '/interactive_world_server/change_mode',
+      serviceType : 'std_srvs/Empty'
+    });
+    var changeButton = $('#change');
+    changeButton.button().click(function() {
+      change.callService(new ROSLIB.ServiceRequest(), function(result) {
+        changeMode();
+      });
+    });
+
+    var save = new ROSLIB.Service({
+      ros : ros,
+      name : '/interactive_world_server/save',
+      serviceType : 'std_srvs/Empty'
+    });
+	var saveButton = $('#save');
+	saveButton.button().click(function() {
+      save.callService(new ROSLIB.ServiceRequest(), function(result) {});
+    });
+	saveButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
+	var templateCount = new ROSLIB.Topic({
+	  ros : ros,
+	  name : '/interactive_world_server/template_count',
+	  messageType : 'std_msgs/Int32'
+	});
+	templateCount.subscribe(function(count) {
+  	  templates = count.data;
+	});
+	$('#dialog').dialog({
+      autoOpen: false,
+      show: {
+        effect: 'blind',
+		duration: 1000
+	   },
+	   hide: {
+		 effect: 'explode',
+		 duration: 500
+	   }
+	});
+	var load = new ROSLIB.Topic({
+      ros : ros,
+      name : '/interactive_world_server/load',
+      messageType : 'std_msgs/Int32'
+    });
+	var loadButton = $('#load');
+	loadButton.button().click(function() {
+	  dialog = $('#dialog');
+	  dialog.html('');
+	  for (var i=0; i<templates; i++) {
+        var button = $(document.createElement('button'));
+        var num = i+1;
+        button.attr('name', num);
+        button.html('Template ' + num);
+        button.button().click(num, function(e) {
+          load.publish(new ROSLIB.Message({data:e.data}));
+          dialog.dialog('close');
+        });  
+        dialog.append(button);
+	  }
+	  dialog.dialog('open');
+	});
+    loadButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
     
     // setup the buttons
     $('body').bind('DOMSubtreeModified', function() {
@@ -262,31 +343,35 @@ class rms_interactive_world
 </script>
 </head>
 <body onload="start();">
-    <section class="interface">
-        <table>
-            <tr>
-                <td rowspan="2">
-                    <div id="button-container">
-                        <center>
-                            <button class="recognize" id="recognize">
-                                Recognize</button>
-                            <br /><br />
-                        </center>
-                    </div>
-                    <div class="mjpeg-widget" id="video1"></div>
-                    <div class="mjpeg-widget" id="video2"></div>
-                </td>
-                <td><h2>
-                        <?php echo $title?>
-                    </h2></td>
-                <td align="right"><img src="../img/logo.png"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><div id="scene" class="scene"></div></td>
-            </tr>
-        </table>
-        <?php content::create_footer()?>
-    </section>
+  <section class="interface">
+    <table>
+      <tr>
+        <td rowspan="2">
+          <div id="button-container">
+            <center>
+              <button class="recognize" id="recognize">Recognize</button>
+              <button class="change" id="change">Change Mode</button>
+              <br /><br />
+                <button class="save" id="save">Save</button>
+                <button class="load" id="load">Load</button>
+              <br /><br />
+            </center>
+          </div>
+          <div class="mjpeg-widget" id="video1"></div>
+          <div class="mjpeg-widget" id="video2"></div>
+        </td>
+        <td><h2>
+            <?php echo $title?>
+          </h2></td>
+        <td align="right">></td>
+      </tr>
+      <tr>
+        <td colspan="2"><div id="scene" class="scene"></div></td>
+      </tr>
+    </table>
+    <?php content::create_footer()?>
+  </section>
+  <div id="dialog" title="Template Loader"></div>
 </body>
 </html>
 <?php
