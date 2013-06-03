@@ -85,7 +85,7 @@ class rms_interactive_world
   src="http://cdn.robotwebtools.org/<?php echo $collada?>">
 </script>
 <script type="text/javascript"
-  src="http://cdn.robotwebtools.org/roslibjs/r5/roslib.min.js"></script>
+  src="http://cdn.robotwebtools.org/roslibjs/r5/roslib.js"></script>
 <script type="text/javascript"
   src="http://cdn.robotwebtools.org/mjpegcanvasjs/r1/mjpegcanvas.min.js">
 </script>
@@ -363,7 +363,11 @@ class rms_interactive_world
         <td><h2>
             <?php echo $title?>
           </h2></td>
-        <td align="right">></td>
+        <td align="right">
+          <figure>
+            <img src="../img/logo.png" />
+          </figure>
+        </td>
       </tr>
       <tr>
         <td colspan="2"><div id="scene" class="scene"></div></td>
