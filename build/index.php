@@ -106,8 +106,35 @@ class rms_interactive_world
     alert('Lost communication with ROS.');
   });
 
+  var viewer = null;
+  var grid2 = null;
+
   var editMode = false;
   var templates = 0;
+
+  var tableHeight = 1.0;
+
+  var drawMode = false;
+  var drawDown = false;
+  var drawStart = null;
+  var drawEnd = null;
+  var drawCube = null;
+  
+  /**
+   * Draw a region.
+   */
+  function drawRegion() {	 
+    // move the camera	  
+	viewer.camera.position.x = viewer.cameraControls.center.x;
+	viewer.camera.position.y = viewer.cameraControls.center.y;
+	viewer.camera.position.z = viewer.cameraControls.center.z + 5;
+	viewer.cameraControls.rotateRight(Math.PI);
+
+	// stop the rotate speed
+	viewer.cameraControls.userRotateSpeed = 0;
+	
+	drawMode = true;
+  }
 
   /**
    * Change the mode of the interface.
@@ -159,7 +186,7 @@ class rms_interactive_world
     });
 
     // create the main viewer
-    var viewer = new ROS3D.Viewer({
+    viewer = new ROS3D.Viewer({
       divID : 'scene',
       width : 1180,
       height : 600,
@@ -174,6 +201,9 @@ class rms_interactive_world
       rate : 10.0,
       fixedFrame : '<?php echo $im[0]['fixed_frame'] ?>'
     });
+
+    grid2 = new ROS3D.Grid();
+    viewer.addObject(grid2);
     
     var grid = new ROS3D.OccupancyGridClient({
       ros : ros,
@@ -197,18 +227,18 @@ class rms_interactive_world
     });
 
     // setup the marker clients
-    <?php
-    foreach ($im as $cur) {?>
-      new ROS3D.InteractiveMarkerClient({
-        ros : ros,
-        tfClient : tfClient,
-        topic : '<?php echo $cur['topic'] ?>',
-        camera : viewer.camera,
-        rootObject : viewer.selectableObjects,
-        path : 'http://resources.robotwebtools.org/'
-      });
+    <?php //TODO
+//     foreach ($im as $cur) {?>
+//      new ROS3D.InteractiveMarkerClient({
+//        ros : ros,
+//        tfClient : tfClient,
+//        topic : '<?php //echo $cur['topic'] ?>',
+//        camera : viewer.camera,
+//        rootObject : viewer.selectableObjects,
+//        path : 'http://resources.robotwebtools.org/'
+//     });
     <?php 
-    }
+//     }
     ?>
 
     // load the Willow model
@@ -334,6 +364,60 @@ class rms_interactive_world
 	  dialog.dialog('open');
 	});
     loadButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
+
+
+    var testButton = $('#test');
+    testButton.button().click(function() {
+	  drawRegion();
+	});
+
+    // handle the drawing
+	viewer.cameraControls.addEventListener('mousedown', function(event) {
+      if (drawMode) {
+    	drawDown = true;
+    	drawStart = new THREE.Vector3(
+    			viewer.camera.position.x + event.mousePos.y * 2,
+    			viewer.camera.position.y - event.mousePos.x * 4, 
+    			tableHeight
+    	);
+
+    	drawCube = new THREE.Mesh(new THREE.CubeGeometry(0, 0, 0.05), 
+    	    	    new THREE.MeshNormalMaterial());
+    	viewer.addObject(drawCube);
+      }
+    });
+	viewer.cameraControls.addEventListener('mouseup', function(event) {
+      if (drawMode) {
+		drawMode = false;
+		drawDown = false;
+        viewer.cameraControls.userRotateSpeed = 1.0;
+      }
+	});
+	viewer.cameraControls.addEventListener('mousemove', function(event) {
+	  if (drawMode && drawDown) {
+	    var cur = new THREE.Vector3(
+	           viewer.camera.position.x + event.mousePos.y * 2,
+	           viewer.camera.position.y - event.mousePos.x * 4, 
+	           tableHeight
+        );
+        viewer.scene.remove(drawCube);
+        drawCube = new THREE.Mesh(new THREE.CubeGeometry(
+                Math.abs(cur.x - drawStart.x), 
+                Math.abs(cur.y - drawStart.y), 0.075), 
+	    	    new THREE.LineBasicMaterial({
+		    	    color: 0x623eba, 
+		    	    transparent: true, 
+		    	    opacity: 0.5 
+		    	}));
+    	drawCube.position.x = drawStart.x + ((cur.x - drawStart.x)/2);
+    	drawCube.position.y = drawStart.y - ((drawStart.y - cur.y)/2);
+    	drawCube.position.z = drawStart.z;
+    	drawCube.material.transparent = true;
+    	drawCube.material.opacity = 0.7;
+    	drawCube.material.needsUpdate = true;
+    	viewer.addObject(drawCube);
+      }
+    });
     
     // setup the buttons
     $('body').bind('DOMSubtreeModified', function() {
@@ -354,6 +438,7 @@ class rms_interactive_world
               <br /><br />
                 <button class="save" id="save">Save</button>
                 <button class="load" id="load">Load</button>
+                <button class="test" id="test">test</button>
               <br /><br />
             </center>
           </div>
