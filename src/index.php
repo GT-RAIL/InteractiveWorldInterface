@@ -112,7 +112,7 @@ class rms_interactive_world
   var editMode = false;
   var templates = 0;
 
-  var tableHeight = 1.0;
+  var tableHeight = 0.0;
 
   var drawMode = false;
   var drawDown = false;
@@ -227,18 +227,18 @@ class rms_interactive_world
     });
 
     // setup the marker clients
-    <?php //TODO
-//     foreach ($im as $cur) {?>
-//      new ROS3D.InteractiveMarkerClient({
-//        ros : ros,
-//        tfClient : tfClient,
-//        topic : '<?php //echo $cur['topic'] ?>',
-//        camera : viewer.camera,
-//        rootObject : viewer.selectableObjects,
-//        path : 'http://resources.robotwebtools.org/'
-//     });
+    <?php
+     foreach ($im as $cur) {?>
+      new ROS3D.InteractiveMarkerClient({
+        ros : ros,
+        tfClient : tfClient,
+        topic : '<?php echo $cur['topic'] ?>',
+        camera : viewer.camera,
+        rootObject : viewer.selectableObjects,
+        path : 'http://resources.robotwebtools.org/'
+     });
     <?php 
-//     }
+     }
     ?>
 
     // load the Willow model
@@ -365,11 +365,24 @@ class rms_interactive_world
 	});
     loadButton.attr('disabled', 'disabled').addClass('ui-state-disabled');
 
+    var regionRequest = new ROSLIB.Topic({
+      ros : ros,
+      name : '/interactive_world_server/init_region_request',
+      messageType : 'std_msgs/Empty'
+    });
+    regionRequest.subscribe(function(empty) {
+      alert('Placement failed. Please select a placement region.');
+      drawRegion();
+    });
 
-    var testButton = $('#test');
-    testButton.button().click(function() {
-	  drawRegion();
-	});
+    var tableHeightTopic = new ROSLIB.Topic({
+  	  ros : ros,
+  	  name : '/interactive_world_server/table_height',
+  	  messageType : 'std_msgs/Float32'
+  	});
+    tableHeightTopic.subscribe(function(height) {
+    	tableHeight = height.data;
+  	});
 
     // handle the drawing
 	viewer.cameraControls.addEventListener('mousedown', function(event) {
@@ -386,11 +399,27 @@ class rms_interactive_world
     	viewer.addObject(drawCube);
       }
     });
+	var regionPub = new ROSLIB.Topic({
+      ros : ros,
+      name : '/interactive_world/region_request',
+      messageType : 'geometry_msgs/Polygon'
+    });
 	viewer.cameraControls.addEventListener('mouseup', function(event) {
       if (drawMode) {
 		drawMode = false;
 		drawDown = false;
         viewer.cameraControls.userRotateSpeed = 1.0;
+        // now send back the coords
+        var curX = viewer.camera.position.x + event.mousePos.y * 2;
+        var curY = viewer.camera.position.y - event.mousePos.x * 4;
+        var points = [
+          {x:curX, y:curY, z:0},
+          {x:drawStart.x, y:curY, z:0},
+          {x:curX, y:drawStart.y, z:0},
+          {x:drawStart.x, y:drawStart.y, z:0}
+        ];
+        console.log(points);
+        regionPub.publish(new ROSLIB.Message({points:points}));
       }
 	});
 	viewer.cameraControls.addEventListener('mousemove', function(event) {
@@ -438,7 +467,6 @@ class rms_interactive_world
               <br /><br />
                 <button class="save" id="save">Save</button>
                 <button class="load" id="load">Load</button>
-                <button class="test" id="test">test</button>
               <br /><br />
             </center>
           </div>
