@@ -27,12 +27,13 @@ class rms_interactive_world
     function generate($re)
     {
         // check if we have enough valid widgets
-        if (!$streams = $re->get_widgets_by_name('MJPEG Stream')) {
+        /*if (!$streams = $re->get_widgets_by_name('MJPEG Stream')) {
             robot_environments::create_error_page(
                 'No MJPEG streams found.',
                 $re->get_user_account()
             );
-        } else if (!$teleop = $re->get_widgets_by_name('Keyboard Teleop')) {
+        } else */
+        if (!$teleop = $re->get_widgets_by_name('Keyboard Teleop')) {
             robot_environments::create_error_page(
                 'No Keyboard Teloperation settings found.',
                 $re->get_user_account()
@@ -54,14 +55,14 @@ class rms_interactive_world
             );
         } else {
             // lets create a string array of MJPEG streams
-            $topics = '[';
+            /*$topics = '[';
             $labels = '[';
             foreach ($streams as $s) {
                 $topics .= "'".$s['topic']."', ";
                 $labels .= "'".$s['label']."', ";
             }
             $topics = substr($topics, 0, strlen($topics) - 2).']';
-            $labels = substr($labels, 0, strlen($topics) - 2).']';
+            $labels = substr($labels, 0, strlen($topics) - 2).']';*/
 
             // we will also need the map
             $widget = widgets::get_widget_by_table('maps');
@@ -86,8 +87,8 @@ class rms_interactive_world
 </script>
 <script type="text/javascript"
   src="http://cdn.robotwebtools.org/roslibjs/r5/roslib.js"></script>
-<script type="text/javascript"
-  src="http://cdn.robotwebtools.org/mjpegcanvasjs/r1/mjpegcanvas.min.js">
+<!-- <script type="text/javascript"
+  src="http://cdn.robotwebtools.org/mjpegcanvasjs/r1/mjpegcanvas.min.js"> -->
 </script>
 <script type="text/javascript"
   src="http://cdn.robotwebtools.org/keyboardteleopjs/r1/keyboardteleop.min.js">
@@ -158,7 +159,7 @@ class rms_interactive_world
    */
   function start() {
     // create MJPEG streams
-    new MJPEGCANVAS.MultiStreamViewer({
+    /*new MJPEGCANVAS.MultiStreamViewer({
       divID : 'video1',
       host : '<?php echo $re->get_mjpeg()?>',
       port : '<?php echo $re->get_mjpegport()?>',
@@ -176,7 +177,7 @@ class rms_interactive_world
       topics : <?php echo $topics?>,
       labels : <?php echo $labels?>,
       defaultStream : <?php echo min(count($streams), 1) ?>
-    });
+    });*/
 
     // initialize the teleop
     new KEYBOARDTELEOP.Teleop({
@@ -460,6 +461,10 @@ class rms_interactive_world
     <table>
       <tr>
         <td rowspan="2">
+          <!-- <div class="mjpeg-widget" id="video1"></div>
+          <div class="mjpeg-widget" id="video2"></div> -->
+        </td>
+        <td>
           <div id="button-container">
             <center>
               <button class="recognize" id="recognize">Recognize</button>
@@ -470,23 +475,19 @@ class rms_interactive_world
               <br /><br />
             </center>
           </div>
-          <div class="mjpeg-widget" id="video1"></div>
-          <div class="mjpeg-widget" id="video2"></div>
-        </td>
-        <td><h2>
+          <!-- <h2>
             <?php echo $title?>
-          </h2></td>
+          </h2> --></td>
         <td align="right">
-          <figure>
+          <!-- <figure>
             <img src="../img/logo.png" />
-          </figure>
+          </figure>-->
         </td>
       </tr>
       <tr>
         <td colspan="2"><div id="scene" class="scene"></div></td>
       </tr>
     </table>
-    <?php content::create_footer()?>
   </section>
   <div id="dialog" title="Template Loader"></div>
 </body>
