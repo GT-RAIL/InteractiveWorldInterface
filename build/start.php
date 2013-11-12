@@ -13,6 +13,7 @@
 session_start();
 
 include_once('../api/users/user_accounts/user_accounts.inc.php');
+include_once('../api/user_studies/experiments/experiments.inc.php');
 
 $createStudy = True;
 $sessionUser = null;
@@ -20,7 +21,6 @@ $exp = null;
 
 // check if a user is logged in
 if (isset($_SESSION['userid'])) {
-    include_once('../api/user_studies/experiments/experiments.inc.php');
     $sessionUser = user_accounts::get_user_account_by_id($_SESSION['userid']);
     
     // maybe they do have a study
@@ -97,5 +97,5 @@ if ($createStudy) {
     }
 }
 
- header('Location: ../connection/?expid='.$exp['expid'].'&intid=8&envid=1');
+header('Location: ../connection/?expid='.$exp['expid'].'&intid=8&envid=1');
    
