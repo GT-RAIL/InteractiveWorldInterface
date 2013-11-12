@@ -96,6 +96,6 @@ if ($createStudy) {
         }
     }
 }
-
+sleep(1);
 header('Location: ../connection/?expid='.$exp['expid'].'&intid=8&envid=1');
    
