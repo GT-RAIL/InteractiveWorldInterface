@@ -60,7 +60,6 @@ if (isset($_SESSION['userid'])) {
 }
 
 if ($createStudy) {
-    echo 'create';
     $rand = rand();
     $condition = -1;
     if ($rand % 2 === 0) {
