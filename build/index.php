@@ -37,14 +37,25 @@ class rms_interactive_world
 <html>
 <head>
 <meta charset="utf-8" />
+<?php $re->create_head()?>
+<?php $re->create_study_head()?>
+<script src="build/eventemitter2.min.js"></script>
 <script src="build/threecolladaloader.min.js"></script>
 <script src="build/interactiveworld.js"></script>
 <link rel="stylesheet"
   type="text/css" href="resources/css/interactiveworld.min.css" />
 <link rel="stylesheet" type="text/css"
   href="https://fonts.googleapis.com/css?family=Ubuntu:700" />
+<script>
+  function start() {
+    var viewer = INTERACTIVEWORLD.init();
+    viewer.on('addition', function(event) {
+      studyLog(JSON.stringify(event));
+    });
+  }
+</script>
 </head>
-<body></body>
+<body onload="start();"></body>
 </html>
 <?php
         }
