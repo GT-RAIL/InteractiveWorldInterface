@@ -52,6 +52,18 @@ class rms_interactive_world
     viewer.on('addition', function(event) {
       studyLog(JSON.stringify(event));
     });
+    viewer.on('completion', function() {
+      <?php 
+          $code = '';
+          $code .= rand(1, 9999);
+          $code .= '.';
+          $code .= rand(1, 9999);
+          $code .= '.';
+          $code .= rand(1, 9999);
+      ?>
+      var code = '<?php echo $code?>';
+      alert('Validation Code: ' + code);
+    });
   }
 </script>
 </head>
