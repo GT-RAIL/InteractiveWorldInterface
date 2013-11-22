@@ -65,7 +65,7 @@ if ($createStudy) {
     if ($rand % 2 === 0) {
         $condition = 13;
     } else {
-        $condition = 14;
+        $condition = 13;
     }
     
     $sql = "INSERT INTO `experiments` (
