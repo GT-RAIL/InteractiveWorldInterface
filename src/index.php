@@ -41,7 +41,7 @@ class rms_interactive_world
 <?php $re->create_study_head()?>
 <script src="build/eventemitter2.min.js"></script>
 <script src="build/threecolladaloader.min.js"></script>
-<script src="build/interactiveworld.js"></script>
+<script src="build/interactiveworld.min.js"></script>
 <link rel="stylesheet"
   type="text/css" href="resources/css/interactiveworld.min.css" />
 <link rel="stylesheet" type="text/css"
