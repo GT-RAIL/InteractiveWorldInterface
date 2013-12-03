@@ -58,11 +58,12 @@ class rms_interactive_world
           $code .= rand(1, 9999);
           $code .= '.';
           $code .= rand(1, 9999);
-          $code .= '.';
-          $code .= rand(1, 9999);
       ?>
       var code = '<?php echo $code?>';
       alert('Validation Code: ' + code);
+      studyLog(JSON.stringify({
+        completion : code
+      }));
     });
   }
 </script>
