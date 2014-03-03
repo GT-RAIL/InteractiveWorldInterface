@@ -48,7 +48,17 @@ class rms_interactive_world
   href="https://fonts.googleapis.com/css?family=Ubuntu:700" />
 <script>
   function start() {
-    var viewer = INTERACTIVEWORLD.init();
+    <?php 
+    	$exp = $re->get_experiment();
+    	echo "var condid = ".$exp['condid'].";";
+    ?>
+    var task;
+		if (condid === 13) {
+			task = 0;
+		} else if (condid === 14) {
+			task = 1;
+		}    
+    var viewer = INTERACTIVEWORLD.init(task);
     viewer.on('addition', function(event) {
       studyLog(JSON.stringify(event));
     });

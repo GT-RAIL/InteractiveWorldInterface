@@ -60,12 +60,13 @@ if (isset($_SESSION['userid'])) {
 }
 
 if ($createStudy) {
+    $condidToUse = 14;
     $sql = "INSERT INTO `experiments` (
              `userid`, `condid`, `envid`, `start`, `end`
               )
               VALUES (
                 '".$sessionUser['userid']."',
-                '13',
+                '".$condidToUse."',
                 '1',
                 '".api::get_current_timestamp()."',
                 '".date('Y-m-d H:i:s', strtotime("+30 minutes"))."'
