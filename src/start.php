@@ -60,7 +60,7 @@ if (isset($_SESSION['userid'])) {
 }
 
 if ($createStudy) {
-    $condidToUse = 14;
+    $condidToUse = 15;
     $sql = "INSERT INTO `experiments` (
              `userid`, `condid`, `envid`, `start`, `end`
               )

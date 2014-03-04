@@ -57,6 +57,8 @@ class rms_interactive_world
 			task = 0;
 		} else if (condid === 14) {
 			task = 1;
+		} else if (condid === 15) {
+			task = 2;
 		}    
     var viewer = INTERACTIVEWORLD.init(task);
     viewer.on('addition', function(event) {
