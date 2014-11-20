@@ -1,18 +1,19 @@
-language: php
+language:
+  - php
 
 php:
   - 5.3
 
+branches:
+  only:
+    - master
+    - develop
+
 before_script:
   - pear channel-discover pear.phing.info
-  - pear install phing/phing
-  - pear install PHP_CodeSniffer
+  - pear channel-discover pear.cakephp.org
+  - pear install phing/phing PHP_CodeSniffer cakephp/CakePHP_CodeSniffer
   - phpenv rehash
-  - sudo apt-get -y install nodejs npm phantomjs
-  - npm install -g karma grunt-cli
-  - cd utils
-  - npm install .
 
 script:
   - phing build
-

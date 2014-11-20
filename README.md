@@ -1,26 +1,27 @@
-rms_interactive_world [![Build Status](https://api.travis-ci.org/SharedAutonomyToolkit/rms_interactive_world.png)](https://travis-ci.org/SharedAutonomyToolkit/rms_interactive_world)
-=====================
+InteractiveWorldInterface [![Build Status](https://api.travis-ci.org/WPI-RAIL/InteractiveWorldInterface.png)](https://travis-ci.org/WPI-RAIL/InteractiveWorldInterface)
+=========================
 
 #### RMS Interface for the Interactive World
-For full documentation, see [the ROS wiki](http://ros.org/wiki/rms_interactive_world).
 
-This project is released as part of the [Robot Management System](http://www.ros.org/wiki/rms) project.
+This repository contains an interface for the [Robot Management System (RMS)](https://github.com/WPI-RAIL/rms).
 
-rms_interactive_world follows the [Zend Coding Standard](http://framework.zend.com/manual/1.12/en/coding-standard.html).
+This project is released as part of the [Robot Web Tools](http://robotwebtools.org/) effort.
 
-### Usage
-Pre-built files can be found in the [build](build/) directory. The difference between the [build](build/) directory and the [src](src/) directory is that [build](build/) contains minified versions of any JavaScript files. This should be used on any deployed system. For development, the [src](src/) directory may be used.
+### Setup
+To setup the interface on a server running the RMS, run the automated script in the [install](install) directory:
 
-### Dependencies
-rms_interactive_world depends on:
+```bash
+cd install
+./install.bash
+```
 
-[rms](https://github.com/WPI-RAIL/rms). The current supported version is 0.3.0.
+This script will copy the scripts to your local RMS directory. Afterwards, you will be able to add the interface through the admin panel.
 
 ### Build
-Checkout [utils/README.md](utils/README.md) for details on building.
+Checkout [CONTRIBUTING.md](CONTRIBUTING.md) for details on building if you are contributing code.
 
 ### License
-rms_interactive_world is released with a BSD license. For full terms and conditions, see the [LICENSE](LICENSE) file.
+InteractiveWorldInterface is released with a BSD license. For full terms and conditions, see the [LICENSE](LICENSE) file.
 
 ### Authors
 See the [AUTHORS.md](AUTHORS.md) file for a full list of contributors.
