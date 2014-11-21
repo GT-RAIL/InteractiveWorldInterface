@@ -8,22 +8,26 @@
  * @copyright	2014 Worcester Polytechnic Institute
  * @link		https://github.com/WPI-RAIL/InteractiveWorldInterface
  * @since		InteractiveWorldInterface v 0.1.0
- * @version		0.1.0
+ * @version		0.1.1
  * @package		app.Controller
  */
 ?>
 
-<script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-<script src="http://cdn.robotwebtools.org/threejs/current/three.min.js"></script>
-<script src="http://cdn.robotwebtools.org/threejs/current/ColladaLoader.min.js"></script>
-<script src="http://cdn.robotwebtools.org/interactiveworldjs/current/interactiveworld.min.js"></script>
+<script src="//s3.amazonaws.com/cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script src="//s3.amazonaws.com/cdn.robotwebtools.org/threejs/current/three.min.js"></script>
+<script src="//s3.amazonaws.com/cdn.robotwebtools.org/threejs/current/ColladaLoader.min.js"></script>
+<script src="//s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/interactiveworld.min.js"></script>
 
 <?php
 // setup any study information
 echo $this->Rms->initStudy();
 
-// experiment type
-$task = str_replace('Interactive World Task ', '', $appointment['Slot']['Condition']['name']);
+if (isset($appointment)) {
+	// experiment type
+	$task = str_replace('Interactive World Task ', '', $appointment['Slot']['Condition']['name']);
+} else {
+	$task = rand(0, 2);
+}
 
 // completion code
 $code = '';
@@ -33,6 +37,12 @@ $code .= rand(1, 9999);
 ?>
 
 <script>
+	// use the CDN versions
+	INTERACTIVEWORLD.CSS_PATH = 'https://s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/';
+	INTERACTIVEWORLD.CSS = 'interactiveworld.min.css';
+	INTERACTIVEWORLD.IMAGE_PATH = 'https://s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/';
+	INTERACTIVEWORLD.NEXT_ARROW = 'next.png';
+	INTERACTIVEWORLD.PREVIOUS_ARROW = 'previous.png';
 	var viewer = INTERACTIVEWORLD.init({task: <?php echo $task; ?>});
 	viewer.on('addition', function(event) {
 		RMS.logJson('place', JSON.stringify(event));

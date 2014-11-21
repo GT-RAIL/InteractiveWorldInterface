@@ -1,3 +1,6 @@
+2014-11-21 - **0.1.1**
+ * HTTPS imports and CDN resources [(rctoris)](https://github.com/rctoris/)
+
 2014-11-20 - **0.1.0**
  * New interactive world approach with new RMS [(rctoris)](https://github.com/rctoris/)
 
