@@ -12,9 +12,9 @@ echo
 
 # check the directory we are working in
 DIR=`pwd`
-if [[ $DIR != *install ]]
+if [[ $DIR != *InteractiveWorldInterface ]]
 then
-	echo "ERROR: Please run this script in the 'install' directory."
+	echo "ERROR: Please run this script in the 'InteractiveWorldInterface' directory."
 	exit;
 fi
 
@@ -25,10 +25,10 @@ if [ ! -d "$RMS" ]; then
 fi
 
 echo "Copying 'app' scripts to local RMS directory..."
-cp ../app/Controller/*.php $RMS/Controller
-cp -r ../app/View/* $RMS/View
+cp app/Controller/*.php $RMS/Controller
+cp -r app/View/* $RMS/View
 mkdir -p $RMS/webroot/resources
-cp -r ../app/webroot/resources/* $RMS/webroot/resources
+cp -r app/webroot/resources/* $RMS/webroot/resources
 
 echo "Installation complete!"
 echo
