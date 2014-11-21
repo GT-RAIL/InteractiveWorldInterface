@@ -8,7 +8,7 @@
  * @copyright	2014 Worcester Polytechnic Institute
  * @link		https://github.com/WPI-RAIL/InteractiveWorldInterface
  * @since		InteractiveWorldInterface v 0.1.0
- * @version		0.1.1
+ * @version		0.1.2
  * @package		app.Controller
  */
 ?>
@@ -38,6 +38,7 @@ $code .= rand(1, 9999);
 
 <script>
 	// use the CDN versions
+	INTERACTIVEWORLD.PATH = 'https://s3.amazonaws.com/resources.robotwebtools.org/';
 	INTERACTIVEWORLD.CSS_PATH = 'https://s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/';
 	INTERACTIVEWORLD.CSS = 'interactiveworld.min.css';
 	INTERACTIVEWORLD.IMAGE_PATH = 'https://s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/';

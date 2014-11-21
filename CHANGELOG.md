@@ -1,3 +1,6 @@
+2014-11-21 - **0.1.2**
+ * HTTPS of meshes [(rctoris)](https://github.com/rctoris/)
+
 2014-11-21 - **0.1.1**
  * HTTPS imports and CDN resources [(rctoris)](https://github.com/rctoris/)
 
