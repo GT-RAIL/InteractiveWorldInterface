@@ -10,7 +10,7 @@ App::uses('InterfaceController', 'Controller');
  * @copyright	2014 Worcester Polytechnic Institute
  * @link		https://github.com/WPI-RAIL/InteractiveWorldInterface
  * @since		InteractiveWorldInterface v 0.1.0
- * @version		0.1.1
+ * @version		0.1.2
  * @package		app.Controller
  */
 class InteractiveWorldInterfaceController extends InterfaceController {
