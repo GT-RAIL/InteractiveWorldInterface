@@ -11,7 +11,7 @@
  * @version		0.2.0
  * @package		app.Controller
  */
-class IwmodelController extends AppController {
+class IwmodelsController extends AppController {
 
 /**
  * The used components for the controller.
