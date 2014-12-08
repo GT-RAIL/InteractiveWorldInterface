@@ -1,3 +1,6 @@
+2014-12-08 - **0.2.0**
+ * Iwmodel JSON responses added [(rctoris)](https://github.com/rctoris/)
+ 
 2014-11-21 - **0.1.2**
  * HTTPS of meshes [(rctoris)](https://github.com/rctoris/)
 
