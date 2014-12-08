@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \InteractiveWorldInterfaceController
+    <title>    API Documentation &raquo; \IwmodelController
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -118,8 +118,14 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
-        <a href="#method_view" title="view :: The basic view action. All necessary variables are set in the main interface controller.">
-            <span class="description">The basic view action. All necessary variables are set in the main interface controller.</span><pre>view</pre>
+        <a href="#method_beforeFilter" title="beforeFilter :: Define the actions which can be used by any user, authorized or not.">
+            <span class="description">Define the actions which can be used by any user, authorized or not.</span><pre>beforeFilter</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_view" title="view :: The basic view action. Information is returned as JSON.">
+            <span class="description">The basic view action. Information is returned as JSON.</span><pre>view</pre>
         </a>
     </li>
 
@@ -127,11 +133,11 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                </ul>
+                                                                                                                    </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                </ul>
+                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -145,14 +151,14 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>InteractiveWorldInterfaceController</h1>
+                <h1>IwmodelController</h1>
                 <small style="display: block; text-align: right">
-                                            Extends \InterfaceController
+                                            Extends \AppController
                                                         </small>
-                <p class="short_description">Interactive World Interface Controller</p>
+                <p class="short_description">Interactive World Model Controller</p>
                 <div class="details">
                     <div class="long_description">
-                        <p>The Interactive World interface controller. This interface will allow for access to the interactive world.</p>
+                        <p>The Interactive World model controller. This interface will allow for access to models via JSON.</p>
                     </div>
                     <table class="table table-bordered">
                                                                                     <tr>
@@ -188,7 +194,7 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>InteractiveWorldInterface v 0.1.0</p>
+                                                                                <p>InteractiveWorldInterface v 0.2.0</p>
                                     </td>
                                 </tr>
                                                                                                                 <tr>
@@ -212,10 +218,10 @@
                                                                                                                                                                                 </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_view"></a>
-                        <div class="element clickable method public  method_view" data-toggle="collapse" data-target=".method_view .collapse">
-                            <h2>The basic view action. All necessary variables are set in the main interface controller.</h2>
-                            <pre>view() : null</pre>
+                                                                <a id="method_beforeFilter"></a>
+                        <div class="element clickable method public  method_beforeFilter" data-toggle="collapse" data-target=".method_beforeFilter .collapse">
+                            <h2>Define the actions which can be used by any user, authorized or not.</h2>
+                            <pre>beforeFilter() : null</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -241,18 +247,81 @@
                             </div>
 
                         </div>
+                                            <a id="method_view"></a>
+                        <div class="element clickable method public  method_view" data-toggle="collapse" data-target=".method_view .collapse">
+                            <h2>The basic view action. Information is returned as JSON.</h2>
+                            <pre>view(integer $conditionID) : null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Thrown if an entry with the given condition ID is not found.</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$conditionID</h4>
+                                                <code>integer</code><p><p>The condition ID.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
                     
                     
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_components"> </a>
+                            <div class="element clickable property  public property_components" data-toggle="collapse" data-target=".property_components .collapse">
+                                <h2>The used components for the controller.</h2>
+                                <pre>components : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
-            <a id="\InteractiveWorldInterfaceController"></a>
+            <a id="\IwmodelController"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
     <li><span class="divider">\</span><a href="../namespaces/default.html">\</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/InteractiveWorldInterfaceController.html">InteractiveWorldInterfaceController</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/IwmodelController.html">IwmodelController</a></li>
             </ul>
         </div>
     </div>
