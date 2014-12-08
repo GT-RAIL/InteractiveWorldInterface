@@ -26,6 +26,7 @@ fi
 
 echo "Copying 'app' scripts to local RMS directory..."
 cp app/Controller/*.php $RMS/Controller
+cp app/Model/*.php $RMS/Model
 cp -r app/View/* $RMS/View
 mkdir -p $RMS/webroot/resources
 cp -r app/webroot/resources/* $RMS/webroot/resources
