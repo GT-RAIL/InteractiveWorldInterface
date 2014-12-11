@@ -122,4 +122,34 @@ class IwmodelsController extends AppController {
 		$this->set('numLogs', count($logs));
 		$this->set('title_for_layout', 'The Interactive World Noise');
 	}
+
+/**
+ * The appointment view action will visualize a single appointment placement setting.
+ *
+ * @param int $appointmentID The appointment ID.
+ * @throws NotFoundException Thrown if an entry with the given condition ID is not found.
+ * @return null
+ */
+	public function appointment($appointmentID) {
+		$logs = $this->Log->find('all', array(
+			'conditions' => array('Log.appointment_id' => $appointmentID, 'Log.label' => 'place'),
+			'recursive' => -1,
+			'fields' => array('Log.entry')
+		));
+
+		if (!$logs) {
+			// no valid entry found for the given ID
+			throw new NotFoundException('No logs found for this condition.');
+		}
+
+		// fix the values
+		foreach ($logs as $key => $log) {
+			$logs[$key]['Log']['entry'] = str_replace('&quot;', '"', $logs[$key]['Log']['entry']);
+		}
+
+		$this->layout = 'empty';
+		$this->set('logs', $logs);
+		$this->set('numLogs', count($logs));
+		$this->set('title_for_layout', 'The Interactive World Appointment');
+	}
 }
