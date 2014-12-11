@@ -1,15 +1,15 @@
 <?php
 /**
- * Interactive World Interface View
+ * Interactive World Noise View
  *
- * The Interactive World interface view. This interface will allow for access to the interactive world.
+ * The Interactive World noise view displays noise in the environment per task.
  *
  * @author		Russell Toris - rctoris@wpi.edu
  * @copyright	2014 Worcester Polytechnic Institute
  * @link		https://github.com/WPI-RAIL/InteractiveWorldInterface
- * @since		InteractiveWorldInterface v 0.1.0
+ * @since		InteractiveWorldInterface v 0.3.0
  * @version		0.2.1
- * @package		app.View.InteractiveWorldInterface
+ * @package		app.View.Iwmodels
  */
 ?>
 
@@ -17,24 +17,6 @@
 <script src="//s3.amazonaws.com/cdn.robotwebtools.org/threejs/current/three.min.js"></script>
 <script src="//s3.amazonaws.com/cdn.robotwebtools.org/threejs/current/ColladaLoader.min.js"></script>
 <script src="//s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/interactiveworld.min.js"></script>
-
-<?php
-// setup any study information
-echo $this->Rms->initStudy();
-
-if (isset($appointment)) {
-	// experiment type
-	$task = str_replace('Interactive World Task ', '', $appointment['Slot']['Condition']['name']);
-} else {
-	$task = rand(0, 2);
-}
-
-// completion code
-$code = '';
-$code .= rand(1, 9999);
-$code .= '.';
-$code .= rand(1, 9999);
-?>
 
 <script>
 	// use the CDN versions
@@ -44,14 +26,17 @@ $code .= rand(1, 9999);
 	INTERACTIVEWORLD.IMAGE_PATH = 'https://s3.amazonaws.com/cdn.robotwebtools.org/interactiveworldjs/current/';
 	INTERACTIVEWORLD.NEXT_ARROW = 'next.png';
 	INTERACTIVEWORLD.PREVIOUS_ARROW = 'previous.png';
-	var viewer = INTERACTIVEWORLD.init({task: <?php echo $task; ?>});
-	viewer.on('addition', function(event) {
-		RMS.logJson('place', JSON.stringify(event));
-	});
-	viewer.on('completion', function(event) {
-		var code = '<?php echo $code; ?>';
-		RMS.logJson('completion', JSON.stringify({completion : code}));
-		alert('Validation Code: ' + code);
-	});
-	RMS.logJson('config', JSON.stringify(viewer.config));
+	var viewer = INTERACTIVEWORLD.init({task: -1});
+
+	// parse the logs
+	var log = {};
+	<?php for ($i = 0; $i < $numLogs; $i++): ?>
+		log = <?php echo $logs[$i]['Log']['entry']; ?>;
+		viewer.placeObjectOnSurface({
+			furnitureName: log.furniture.name,
+			surfaceName: log.furniture.surface.name,
+			position: log.furniture.surface.object.position,
+			rotation: {z: log.furniture.surface.object.rotation}
+		});
+	<?php endfor; ?>
 </script>
