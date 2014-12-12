@@ -1,3 +1,8 @@
+2014-12-12 - **0.3.0**
+ * Template viewing added [(rctoris)](https://github.com/rctoris/)
+ * Appointment view added [(rctoris)](https://github.com/rctoris/)
+ * Noise model added [(rctoris)](https://github.com/rctoris/)
+
 2014-12-08 - **0.2.1**
  * Changed controller name to IwmodelsController [(rctoris)](https://github.com/rctoris/)
  
