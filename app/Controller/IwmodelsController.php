@@ -152,4 +152,24 @@ class IwmodelsController extends AppController {
 		$this->set('numLogs', count($logs));
 		$this->set('title_for_layout', 'The Interactive World Appointment');
 	}
+
+/**
+ * The template view action will visualize a single template for a given condition.
+ *
+ * @param int $conditionID The condition ID.
+ * @throws NotFoundException Thrown if an entry with the given condition ID is not found.
+ * @return null
+ */
+	public function template($conditionID) {
+		$iwmodel = $this->Iwmodel->find('first', array('conditions' => array('Iwmodel.condition_id' => $conditionID)));
+
+		if (!$iwmodel) {
+			// no valid entry found for the given ID
+			throw new NotFoundException('Invalid condition identifier.');
+		}
+
+		$this->layout = 'empty';
+		$this->set('iwmodel', $iwmodel);
+		$this->set('title_for_layout', 'The Interactive World Template');
+	}
 }
