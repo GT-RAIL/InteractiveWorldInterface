@@ -8,7 +8,7 @@
  * @copyright	2014 Worcester Polytechnic Institute
  * @link		https://github.com/WPI-RAIL/InteractiveWorldInterface
  * @since		InteractiveWorldInterface v 0.1.0
- * @version		0.3.0
+ * @version		0.3.1
  * @package		app.View.InteractiveWorldInterface
  */
 ?>
