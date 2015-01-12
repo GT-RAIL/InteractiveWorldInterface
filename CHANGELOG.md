@@ -1,3 +1,6 @@
+2015-01-12 - **0.3.1**
+ * Allows anyone to view data visualization [(rctoris)](https://github.com/rctoris/)
+
 2014-12-12 - **0.3.0**
  * Template viewing added [(rctoris)](https://github.com/rctoris/)
  * Appointment view added [(rctoris)](https://github.com/rctoris/)

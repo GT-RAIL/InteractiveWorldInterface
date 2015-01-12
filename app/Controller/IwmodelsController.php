@@ -36,7 +36,7 @@ class IwmodelsController extends AppController {
 	public function beforeFilter() {
 		// only allow unauthenticated viewing of a single page
 		parent::beforeFilter();
-		$this->Auth->allow('view');
+		$this->Auth->allow('view', 'noise', 'appointment', 'template');
 	}
 
 /**
