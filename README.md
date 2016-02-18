@@ -1,4 +1,4 @@
-InteractiveWorldInterface [![Build Status](https://api.travis-ci.org/WPI-RAIL/InteractiveWorldInterface.png)](https://travis-ci.org/WPI-RAIL/InteractiveWorldInterface)
+InteractiveWorldInterface [![Build Status](https://api.travis-ci.org/GT-RAIL/InteractiveWorldInterface.png)](https://travis-ci.org/GT-RAIL/InteractiveWorldInterface)
 =========================
 
 #### RMS Interface for the Interactive World
